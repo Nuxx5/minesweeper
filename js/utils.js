@@ -17,7 +17,7 @@ function printMat(mat, selector) {
   // location such as: {i: 2, j: 7}
   function renderCell(location, value) {
     // Select the elCell and set the value
-    var elCell = document.querySelector(`.cell${location.i}-${location.j}`);
+    var elCell = document.querySelector(`.cell data-i=${i} data-j=${j}`);
     elCell.innerHTML = value;
   }
 
@@ -34,4 +34,19 @@ function printMat(mat, selector) {
     return color;
   }
 
+  function startTimer() {
+    gElTimer.style.display = ''
+    gStartTime = Date.now()
+    gTimerInteral = setInterval(function startClock() {
+      var substractTime = Date.now() - gStartTime;
+      var timeAsStr = (substractTime / 1000).toFixed(3);
+      gElTimer.innerText = `${timeAsStr}`;
+    }, 10);
+  }
+
+  function resetTimer() {
+    clearInterval(gTimerInterval)
+    gElTimer.innerText = '0';
+    gElTimer.style.display = 'none';
+}
   
