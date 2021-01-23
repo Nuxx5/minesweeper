@@ -1,6 +1,5 @@
 // TODO: 3 Lives + all the bonuses + better CSS design
 
-
 'use strict'
 const MINE = '💣'
 const FLAG = '⛳'
@@ -9,11 +8,12 @@ const CLOUD = '🤯'
 const SUNGLASSES = '😎'
 const EMPTY = ''
 
-var gLives = 3;
+var gLives = 1;
 var gElEmoji = document.querySelector('.emoji');
 var gStartTime;
 var gTimerInterval;
 var gElTimer = document.querySelector('.timer span');
+var gElLives = document.querySelector('.lives span');
 var gBoard;
 var gTurn = 0;
 var gLevel = {
@@ -107,18 +107,27 @@ function cellClicked(elCell, i, j) {
     gTurn++
     gGame.shownCount++
     elCell.classList.add("shown");
-    if (cell.isMine === true) elCell.innerText = MINE;
+    if (cell.isMine === true) {
+        if (gLives >= 1) {
+            elCell.innerText = MINE;
+            gLives--;
+            gElLives.innerText = gLives;
+            if (gLives >= 1) return
+    }
+    }
     if (cell.minesAroundCount > 0 && cell.isMine === false) elCell.innerText = cell.minesAroundCount
     if (cell.minesAroundCount === 0) {
-        elCell.innerText =''
-        expandShown(gBoard, elCell, i, j)
+        elCell.innerText = ''
+        if (gTurn === 1) {
+            startTimer();
+            createRandomMines(gLevel);
+            setMinesNegsCount(gBoard);
+        }
     }
-    checkGameOver(cell)
-    if (gTurn === 1) {
-        startTimer();
-        createRandomMines(gLevel);
-    }
+    if (cell.isMine === false) expandShown(gBoard, elCell, i, j)
+    if (gTurn > 1) checkGameOver(cell)
 }
+
 
 // called when a cell is marked with a flag
 function cellMarked(elCell, i, j) {
@@ -148,12 +157,13 @@ function expandShown(board, elCell, i, j) {
             var currCell = board[i][j]
             if (currCell.isShown === true) continue
             if (currCell.isMarked === true) continue
-                currCell.isShown = true
-                gGame.shownCount++
-                var currElCell = document.getElementById(`cell-${i}-${j}`)
-                currElCell.classList.add("shown");
-                if (currCell.minesAroundCount > 0) currElCell.innerText = currCell.minesAroundCount;
-            
+            if (currCell.isMine === true) continue
+            currCell.isShown = true
+            gGame.shownCount++
+            var currElCell = document.getElementById(`cell-${i}-${j}`)
+            currElCell.classList.add("shown");
+            if (currCell.minesAroundCount > 0) currElCell.innerText = currCell.minesAroundCount;
+            if (currCell.minesAroundCount === 0) expandShown(board, elCell, i, j)
         }
     }
     return
@@ -161,8 +171,10 @@ function expandShown(board, elCell, i, j) {
 
 // check whether all mines are marked and all cells are shown
 function checkGameOver(cell) {
-    if (cell.isShown === true && cell.isMine === true) {
+    if (cell.isShown === true && cell.isMine === true && gLives === 0) {
         resetTimer()
+        clearInterval(gTimerInterval)
+        gTimerInterval = null
         showAllMines()
         gElEmoji.innerText = CLOUD;
         gGame.isOn = false
@@ -171,8 +183,10 @@ function checkGameOver(cell) {
     }
     var safeCellsCount = gLevel.SIZE ** 2 - gLevel.MINES;
     var totalMinesCount = gLevel.MINES;
-    if (gGame.shownCount === safeCellsCount && gGame.markedCount === totalMinesCount) {
+    if (gGame.shownCount === (safeCellsCount - gLives + 3) && gGame.markedCount === (totalMinesCount + gLives -3)) {
         resetTimer()
+        clearInterval(gTimerInterval)
+        gTimerInterval = null
         gElEmoji.innerText = SUNGLASSES;
         gGame.isOn = false
         gTurn = 0
@@ -194,6 +208,7 @@ function createRandomMines(gLevel) {
     while (counter < gLevel.MINES) {
         var randomPosI = getRandomIntInclusive(0, gLevel.SIZE - 1)
         var randomPosJ = getRandomIntInclusive(0, gLevel.SIZE - 1)
+        if (gBoard[randomPosI][randomPosJ].isShown === true) continue;
         if (gBoard[randomPosI][randomPosJ].isMine === false) {
             gBoard[randomPosI][randomPosJ].isMine = true
             // var currElCell = document.getElementById(`cell-${randomPosI}-${randomPosJ}`)
@@ -207,21 +222,25 @@ function createRandomMines(gLevel) {
 function changeDiffLevel(elBtn) {
     var size = elBtn.dataset.size;
     var mines = elBtn.dataset.mines;
-    gLevel.SIZE = size;
-    gLevel.MINES = mines;
+    var lives = elBtn.dataset.lives;
+    gLevel.SIZE = +size;
+    gLevel.MINES = +mines;
+    gLives = +lives;
+    gElLives.innerText = gLives
     restartGame()
 }
 // show all mines when game over
 function showAllMines() {
     for (var i = 0; i < gBoard.length; i++) {
-      for (var j = 0; j < gBoard[0].length; j++) {
-          var currCell = gBoard[i][j];
-        if (currCell.isMine === true) {
-          currCell.isShown = true;
-          var currElCell = document.getElementById(`cell-${i}-${j}`)
-          currElCell.innerText = MINE
-          
+        for (var j = 0; j < gBoard[0].length; j++) {
+            var currCell = gBoard[i][j];
+            if (currCell.isMine === true) {
+                currCell.isShown = true;
+                var currElCell = document.getElementById(`cell-${i}-${j}`)
+                currElCell.classList.add("shown")
+                currElCell.innerText = MINE
+
+            }
         }
-      }
     }
-  }
+}

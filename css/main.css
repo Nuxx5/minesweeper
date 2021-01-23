@@ -1,11 +1,11 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #111;
+    /* background: #111; */
     background-image: url('../img/ms.jpeg');
     /* background-position: center;  */
     background-size: cover;
     background-repeat: no-repeat;
-    color: white;
+    /* color: cyan; */
     position: absolute;
     margin-top: 70px; 
     left: 800px  
@@ -24,6 +24,7 @@ h2 {
 }
 
 .shown {
+    font-family: Arial, Helvetica, sans-serif;
     background-color:white;
     color: blue;
 }
@@ -62,6 +63,8 @@ td {
     background-color: whitesmoke;
     margin: 10px;
     border-radius: 10%;
+    border-style: solid;
+    border-color: green;
   }
 
   .button {
@@ -73,6 +76,11 @@ td {
     margin-bottom: 30px;
     border-radius: 10%;
   }
+
+.button:hover {
+  cursor: pointer;
+}
+
 .button emoji {
     position: relative;
     left: 900px;

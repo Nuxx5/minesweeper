@@ -11,16 +11,16 @@
 <body onload="initGame()">
     <h2>Minesweeper</h2>
     <div>
-        <button class="button easy" data-size="4" data-mines="2" onclick="changeDiffLevel(this)">Easy</button>
-        <button class="button normal" data-size="8" data-mines="12" onclick="changeDiffLevel(this)">Normal</button>
-        <button class="button hard" data-size="12" data-mines="30" onclick="changeDiffLevel(this)">Hard</button>
+        <button class="button easy" data-size="4" data-mines="2" data-lives="3" onclick="changeDiffLevel(this)">Easy</button>
+        <button class="button normal" data-size="8" data-mines="12" data-lives="3" onclick="changeDiffLevel(this)">Normal</button>
+        <button class="button hard" data-size="12" data-mines="30" data-lives="3" onclick="changeDiffLevel(this)">Hard</button>
     </div>
     <div>
         <button class="button emoji" onclick="restartGame()">😀</button>
     </div>
     <div>
         <p class="timer">Time: <span>0</span></p>
-        <!-- <p class="lives">Lives: <span>3</span></p> -->
+        <p class="lives">Lives: <span>3</span></p>
     </div>
     <table class="board">
         <tbody class="minesweeper"></tbody>

@@ -46,6 +46,7 @@ function printMat(mat, selector) {
 
   function resetTimer() {
     clearInterval(gTimerInterval)
+    gTimerInterval = null
     gElTimer.innerText = '0';
     gElTimer.style.display = 'none';
 }
