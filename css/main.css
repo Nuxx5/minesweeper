@@ -1,32 +1,29 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    /* background: #111; */
-    background-image: url('../img/ms.jpeg');
-    /* background-position: center;  */
-    background-size: cover;
-    background-repeat: no-repeat;
-    /* color: cyan; */
-    position: absolute;
-    margin-top: 70px; 
-    left: 800px  
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url('../img/ms.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  margin-top: 70px;
+  left: 800px
 }
 
 .cell {
-    width: 25px;
-    height: 25px;
-    background-color: grey;
+  width: 25px;
+  height: 25px;
+  background-color: grey;
 }
 
 h2 {
-    color: cyan;
-    font-size: 2em;
-    text-align: center;
+  color: cyan;
+  font-size: 2em;
+  text-align: center;
 }
 
 .shown {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color:white;
-    color: blue;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  color: blue;
 }
 
 td {
@@ -40,49 +37,64 @@ td {
 }
 
 .timer {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    color: red;
-    padding: 10px;
-    width: 100px;
-    height: 30px;
-    background-color: whitesmoke;
-    margin: 10px;
-    border-style: solid;
-    border-radius: 10%;
-    border-color: red;
-  }
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: red;
+  padding: 10px;
+  width: 100px;
+  height: 20px;
+  background-color: whitesmoke;
+  margin: 10px;
+  border-style: solid;
+  border-radius: 10%;
+  border-color: red;
+  text-align: center
+}
 
-  .lives {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    color: green;
-    padding: 10px;
-    width: 100px;
-    height: 30px;
-    background-color: whitesmoke;
-    margin: 10px;
-    border-radius: 10%;
-    border-style: solid;
-    border-color: green;
-  }
+.lives {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: green;
+  padding: 10px;
+  width: 100px;
+  height: 20px;
+  background-color: whitesmoke;
+  margin: 10px;
+  border-radius: 10%;
+  border-style: solid;
+  border-color: green;
+  text-align: center
+}
 
-  .button {
-    position: relative;
-    width: 130px;
-    height: 50px;
-    color: blue;
-    /* background-color: yellow; */
-    margin-bottom: 30px;
-    border-radius: 10%;
-  }
+.button {
+  position: relative;
+  width: 130px;
+  height: 50px;
+  color: blue;
+  margin-bottom: 15px;
+  border-radius: 10%;
+  font-size: 15px;
+  border-color: blue;
+  border-style: solid;
+}
 
 .button:hover {
   cursor: pointer;
 }
 
-.button emoji {
-    position: relative;
-    left: 900px;
-    top: 200px;
+.emoji {
+  position: relative;
+  border-color: yellow;
+}
+
+.safe-clicks {
+  position: relative;
+  width: 130px;
+  height: 50px;
+  margin: 10px;
+  border-radius: 10%;
+  color: magenta;
+  border-color: magenta;
+  border-style: solid;
+  font-size: 15px;
 }
